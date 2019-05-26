@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The only task. Used to upload the files to a discord server
+ * The only task. Used to upload the files to a webhook
  */
 public class UploadTask extends DefaultTask {
 

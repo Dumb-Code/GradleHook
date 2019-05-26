@@ -1,19 +1,47 @@
 plugins {
-    id 'java'
-    id 'java-gradle-plugin'
-    id 'maven-publish'
+    id "com.gradle.plugin-publish" version "0.10.1"
+    id "java-gradle-plugin"
 }
 
-group 'net.dumbcode.gdisc'
-version '1.0-SNAPSHOT'
+group 'net.dumbcode.gradlehook'
+version '1.0.0'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-    jcenter()
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
 }
 
-dependencies {
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
 }
 
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+gradlePlugin {
+    plugins {
+        gradleHookPlugin  = {
+            id = 'net.dumbcode.gradlehook'
+            implementationClass = 'net.dumbcode.gradlehook.GradleWebhookPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'http://www.dumbcode.net/'
+    vcsUrl = 'https://github.com/Dumb-Code/GradleHook'
+    description = 'Adds a task to post a build to a webhook'
+
+    plugins() {
+        gradleHookPlugin {
+            displayName = 'GradleHook'
+            version = project.version
+        }
+    }
+}
