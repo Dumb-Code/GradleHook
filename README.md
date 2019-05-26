@@ -1,5 +1,5 @@
 # Gradle-Hook
-Gradle plugin that adds a task to post a POST request with the builds files.
+Adds the `post-request` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified.
 
 # Applying the Plugin
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
@@ -45,7 +45,7 @@ artifacts {
     archives sourcesJar
 }
 
-discordplugin {
+gradlehook {
     urlToken "http://example.com/webhook"
     addArtifact jar
     addArtifact sourcesJar
@@ -56,7 +56,7 @@ discordplugin {
 When sending the request, you might want to add additional data. This can be done with the `addField` method.
 For example, sending a webhook to a discord server would be:
 ```gradle
-discordplugin {
+gradlehook {
     urlToken 'https://discordapp.com/api/webhooks/012345678912345678/eUGNDv4bnB6D8UdillDvccPl78gGYmU86s4DdDqxXC7A0nQybH9S96q_vNsLNGEnv9WQ' //Would go in a gradle.properties, or a file that isn't commited to git
     
     addField 'payload_json', '{ "embeds": [{ "timestamp": "{{datetime}}" }] }'
