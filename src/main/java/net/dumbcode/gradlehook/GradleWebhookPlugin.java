@@ -1,7 +1,7 @@
-package net.dumbcode.gdisc;
+package net.dumbcode.gradlehook;
 
-import net.dumbcode.gdisc.extensions.TokenExtension;
-import net.dumbcode.gdisc.tasks.UploadTask;
+import net.dumbcode.gradlehook.extensions.TokenExtension;
+import net.dumbcode.gradlehook.tasks.UploadTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskProvider;

@@ -1,9 +1,9 @@
-package net.dumbcode.gdisc.tasks;
+package net.dumbcode.gradlehook.tasks;
 
-import net.dumbcode.gdisc.extensions.JarEntry;
-import net.dumbcode.gdisc.tasks.form.FieldObject;
-import net.dumbcode.gdisc.tasks.form.FileObject;
-import net.dumbcode.gdisc.tasks.form.PostForm;
+import net.dumbcode.gradlehook.extensions.JarEntry;
+import net.dumbcode.gradlehook.tasks.form.FieldObject;
+import net.dumbcode.gradlehook.tasks.form.FileObject;
+import net.dumbcode.gradlehook.tasks.form.PostForm;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
@@ -13,7 +13,6 @@ import org.gradle.api.tasks.TaskAction;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package net.dumbcode.gdisc.tasks.form;
+package net.dumbcode.gradlehook.tasks.form;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

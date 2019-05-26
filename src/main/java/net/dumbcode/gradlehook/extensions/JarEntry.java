@@ -1,4 +1,4 @@
-package net.dumbcode.gdisc.extensions;
+package net.dumbcode.gradlehook.extensions;
 
 import org.gradle.api.tasks.bundling.AbstractArchiveTask;
 
