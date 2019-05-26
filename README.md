@@ -5,7 +5,7 @@ Adds the `post-request` task which simply posts a POST request along with the sp
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```gradle
 plugins {
-  id "net.dumbcode.gradlehook" version "1.1.0"
+  id "net.dumbcode.gradlehook" version "1.2.0"
 }
 ```
 Using [legacy plugin application](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application):
@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "net.dumbcode:gradle-plugins:1.1.0"
+    classpath "net.dumbcode:gradle-plugins:1.2.0"
   }
 }
 
