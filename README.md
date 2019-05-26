@@ -57,7 +57,7 @@ When sending the request, you might want to add additional data. This can be don
 For example, sending a webhook to a discord server would be:
 ```gradle
 gradlehook {
-    urlToken 'https://discordapp.com/api/webhooks/012345678912345678/eUGNDv4bnB6D8UdillDvccPl78gGYmU86s4DdDqxXC7A0nQybH9S96q_vNsLNGEnv9WQ' //Would go in a gradle.properties, or a file that isn't commited to git
+    urlToken 'https://discordapp.com/api/webhooks/012345678912345678/foobar' //Would go in a gradle.properties, or a file that isn't commited to git
     
     addField 'payload_json', '{ "embeds": [{ "timestamp": "{{datetime}}" }] }'
     
