@@ -14,7 +14,7 @@ public class GradleWebhookPlugin implements Plugin<Project> {
 
         TaskProvider<UploadTask> taskP = project.getTasks().register("upload-file", UploadTask.class, uploadTask -> {
             uploadTask.getUrlToken().set(extension.getUrlToken());
-            uploadTask.getJsonPayload().set(extension.getJsonPayload());
+            uploadTask.getFieldEntries().set(extension.getFieldEntries());
             uploadTask.getJars().set(extension.getAllJars());
             uploadTask.getMessageFirst().set(extension.getMessageFirst());
         });

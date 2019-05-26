@@ -1,5 +1,6 @@
 package net.dumbcode.gradlehook.tasks;
 
+import net.dumbcode.gradlehook.extensions.FieldEntry;
 import net.dumbcode.gradlehook.extensions.JarEntry;
 import net.dumbcode.gradlehook.tasks.form.FieldObject;
 import net.dumbcode.gradlehook.tasks.form.FileObject;
@@ -34,7 +35,7 @@ public class UploadTask extends DefaultTask {
     /**
      * The json payload to optionally send with the files. Sending this will cause a message/embed
      */
-    private final Property<String> jsonPayload = getProject().getObjects().property(String.class);
+    private final ListProperty<FieldEntry> fieldEntries = getProject().getObjects().listProperty(FieldEntry.class);
     /**
      * If the payload is not empty, and this is set to true, then the json payload will be sent before the files
      */
@@ -52,8 +53,8 @@ public class UploadTask extends DefaultTask {
 
     @Input
     @Optional
-    public Property<String> getJsonPayload() {
-        return jsonPayload;
+    public ListProperty<FieldEntry> getFieldEntries() {
+        return fieldEntries;
     }
     @Input
     @Optional
@@ -67,16 +68,18 @@ public class UploadTask extends DefaultTask {
         //Create the form
         PostForm form = new PostForm(url);
         //If there is a json payload
-        if(this.jsonPayload.isPresent()) {
-            String str = this.jsonPayload.get();
+        if(this.fieldEntries.isPresent()) {
+            for (FieldEntry entry : this.fieldEntries.get()) {
+                String str = entry.getValue();
 
-            //Replace the placeholders in the json file
-            str = str.replace("{{version}}", getProject().getVersion().toString());
-            str = str.replace("{{name}}", getProject().getDisplayName());
-            str = str.replace("{{group}}", getProject().getGroup().toString());
-            str = str.replace("{{datetime}}", Instant.now().atZone(ZoneOffset.UTC).toString());
+                //Replace the placeholders in the json file
+                str = str.replace("{{version}}", getProject().getVersion().toString());
+                str = str.replace("{{name}}", getProject().getDisplayName());
+                str = str.replace("{{group}}", getProject().getGroup().toString());
+                str = str.replace("{{datetime}}", Instant.now().atZone(ZoneOffset.UTC).toString());
 
-            form.addObject(new FieldObject("payload_json", str));
+                form.addObject(new FieldObject(entry.getName(), str));
+            }
 
             //If the message first property is set, send the form and a reset it. The point of this is to have the text come before the files
             if(this.messageFirst.isPresent() && this.messageFirst.get()) {
