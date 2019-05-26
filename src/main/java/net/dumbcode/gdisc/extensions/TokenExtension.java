@@ -5,22 +5,36 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.bundling.AbstractArchiveTask;
 
+/**
+ * The extension class for the plugin/
+ */
 public class TokenExtension {
+    /**
+     * The list of all the jars to upload
+     */
+    private ListProperty<JarEntry> jars;
+    /**
+     * The url to send a post request to
+     */
     private Property<String> urlToken;
+    /**
+     * The json payload to optionally send with the files. Sending this will cause a message/embed
+     */
     private Property<String> jsonPayload;
+    /**
+     * If the payload is not empty, and this is set to true, then the json payload will be sent before the files
+     */
     private Property<Boolean> messageFirst;
-
-    private ListProperty<JarEntry> objs;
 
     public TokenExtension(Project project) {
         urlToken = project.getObjects().property(String.class);
         jsonPayload = project.getObjects().property(String.class);
-        objs = project.getObjects().listProperty(JarEntry.class);
+        jars = project.getObjects().listProperty(JarEntry.class);
         messageFirst = project.getObjects().property(Boolean.class);
     }
 
-    public void addFile(AbstractArchiveTask task) {
-        objs.add(new JarEntry(task));
+    public void addArtifact(AbstractArchiveTask task) {
+        jars.add(new JarEntry(task));
     }
 
     public void urlToken(String string) {
@@ -47,7 +61,7 @@ public class TokenExtension {
         return messageFirst;
     }
 
-    public ListProperty<JarEntry> getAllTasks() {
-        return objs;
+    public ListProperty<JarEntry> getAllJars() {
+        return jars;
     }
 }

@@ -2,17 +2,19 @@ package net.dumbcode.gdisc.tasks.form;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * A file to be attached to the post request
+ */
 public class FileObject implements FormObject {
 
     private final String filename;
     private final byte[] bytes;
 
     public FileObject(File file, String name) throws IOException {
-        this(name, FormObject.getBytes(file));
+        this(name, FormObject.bytesFromFile(file));
     }
 
     public FileObject(String filename, byte[] bytes) {

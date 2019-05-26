@@ -4,7 +4,6 @@ import net.dumbcode.gdisc.extensions.JarEntry;
 import net.dumbcode.gdisc.tasks.form.FieldObject;
 import net.dumbcode.gdisc.tasks.form.FileObject;
 import net.dumbcode.gdisc.tasks.form.PostForm;
-import org.apache.tools.ant.types.resources.comparators.Date;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
@@ -16,23 +15,35 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The only task. Used to upload the files to a discord server
+ */
 public class UploadTask extends DefaultTask {
 
-    private final ListProperty<JarEntry> tasks = getProject().getObjects().listProperty(JarEntry.class);
+    /**
+     * The list of all the jars to upload
+     */
+    private final ListProperty<JarEntry> jars = getProject().getObjects().listProperty(JarEntry.class);
+    /**
+     * The url to send a post request to
+     */
     private final Property<String> urlToken = getProject().getObjects().property(String.class);
+    /**
+     * The json payload to optionally send with the files. Sending this will cause a message/embed
+     */
     private final Property<String> jsonPayload = getProject().getObjects().property(String.class);
+    /**
+     * If the payload is not empty, and this is set to true, then the json payload will be sent before the files
+     */
     private final Property<Boolean> messageFirst = getProject().getObjects().property(Boolean.class);
 
     @Input
-    public ListProperty<JarEntry> getTasks() {
-        return tasks;
+    public ListProperty<JarEntry> getJars() {
+        return jars;
     }
 
     @Input
@@ -54,44 +65,37 @@ public class UploadTask extends DefaultTask {
     @TaskAction
     public void uploadFile() {
         String url = this.urlToken.get();
-
-        PostForm form;
-        try {
-            form = new PostForm(url);
-        } catch (MalformedURLException e) {
-            System.out.printf("%s is an invalid URL", url);
-            return;
-        }
+        //Create the form
+        PostForm form = new PostForm(url);
+        //If there is a json payload
         if(this.jsonPayload.isPresent()) {
             String str = this.jsonPayload.get();
+
+            //Replace the placeholders in the json file
             str = str.replace("{{version}}", getProject().getVersion().toString());
             str = str.replace("{{name}}", getProject().getDisplayName());
             str = str.replace("{{group}}", getProject().getGroup().toString());
             str = str.replace("{{datetime}}", Instant.now().atZone(ZoneOffset.UTC).toString());
 
             form.addObject(new FieldObject("payload_json", str));
-        }
 
-        if(this.messageFirst.isPresent() && this.messageFirst.get()) {
-            //Send the form and a create a new one. The point of this is to have the text come before the files
-            try {
-                PostForm.Result result = form.send();
-                if(result.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    System.out.printf("Got an error response %d, aborting upload process", result.getResponseCode());
+            //If the message first property is set, send the form and a reset it. The point of this is to have the text come before the files
+            if(this.messageFirst.isPresent() && this.messageFirst.get()) {
+                try {
+                    PostForm.Result result = form.send();
+                    if(result.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        System.out.printf("Got an error response %d, aborting upload process", result.getResponseCode());
+                    }
+                } catch (IOException e) {
+                    System.out.println(e.getLocalizedMessage());
+
                 }
-            } catch (IOException e) {
-                System.out.println(e.getLocalizedMessage());
-
-            }
-            try {
-                form = new PostForm(url);
-            } catch (MalformedURLException e) {
-                System.out.printf("%s is an invalid URL", url);
-                return;
+                form.reset();
             }
         }
 
-        List<JarEntry> tasks = this.tasks.getOrElse(new ArrayList<>());
+        //Get the list of tasks
+        List<JarEntry> tasks = this.jars.getOrElse(new ArrayList<>());
         for (JarEntry task : tasks) {
             try {
                 form.addObject(new FileObject(task.getJarFile(), task.getFileName()));

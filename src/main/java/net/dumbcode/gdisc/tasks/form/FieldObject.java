@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * A field to be attached to the post request
+ */
 public class FieldObject implements FormObject {
 
     private final String fieldName;
@@ -16,7 +19,7 @@ public class FieldObject implements FormObject {
     }
 
     public FieldObject(String fieldName, File file) throws IOException {
-        this(fieldName, FormObject.getBytes(file));
+        this(fieldName, FormObject.bytesFromFile(file));
     }
 
     public FieldObject(String fieldName, byte[] fieldValue) {
