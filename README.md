@@ -28,7 +28,7 @@ apply plugin: "net.dumbcode.gradlehook"
 # Simple Plugin
 The bare minimum of a plugin
 ```gradle
-discordplugin {
+gradlehook {
     urlToken "http://example.com/webhook" //You will want to keep this url private. It should really be in a gradle.properties file.
     addArtifact jar
 }
