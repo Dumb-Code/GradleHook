@@ -6,6 +6,10 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskProvider;
 
+/**
+ * @Author Jack Goldsworth
+ * @Author Wyn Price
+ */
 public class GradleWebhookPlugin implements Plugin<Project> {
 
     @Override
