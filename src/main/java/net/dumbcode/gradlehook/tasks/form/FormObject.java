@@ -10,7 +10,8 @@ import java.io.IOException;
  */
 public interface FormObject {
     /**
-     * Get the bytes for the form.
+     * @return the serialized version for the http request
+     * @throws IOException if serializing has gone wrong
      */
     byte[] getBytes() throws IOException;
 

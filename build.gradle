@@ -42,6 +42,7 @@ pluginBundle {
         gradleHookPlugin {
             displayName = 'GradleHook'
             version = project.version
+            tags = ['webhook', 'integration', 'discord']
         }
     }
 }
