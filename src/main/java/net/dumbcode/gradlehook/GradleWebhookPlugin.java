@@ -10,9 +10,9 @@ public class GradleWebhookPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        TokenExtension extension = project.getExtensions().create("discordplugin", TokenExtension.class, project);
+        TokenExtension extension = project.getExtensions().create("gradlehook", TokenExtension.class, project);
 
-        TaskProvider<UploadTask> taskP = project.getTasks().register("upload-file", UploadTask.class, uploadTask -> {
+        TaskProvider<UploadTask> taskP = project.getTasks().register("post-request", UploadTask.class, uploadTask -> {
             uploadTask.getUrlToken().set(extension.getUrlToken());
             uploadTask.getFieldEntries().set(extension.getFieldEntries());
             uploadTask.getJars().set(extension.getAllJars());
