@@ -5,7 +5,7 @@ Adds the `post-request` task which simply posts a POST request along with the sp
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```gradle
 plugins {
-  id "net.dumbcode.gradlehook" version "1.2.0"
+  id "net.dumbcode.gradlehook" version "1.1.0"
 }
 ```
 Using [legacy plugin application](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application):
@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.0.0"
+    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.1.0"
   }
 }
 
@@ -71,3 +71,13 @@ The fields are able to have placeholders, as shown in the above example. These p
  - `{{name}}` -> project name
  - `{{group}}` -> project group
  - `{{datetime}}` -> the current time in UTC, in ISO-8601 format 
+ 
+ ## Message First Option
+ In some senarios, you want the text message to sent as a seperate webhook before the build webhooks.
+```gradle
+gradlehook {
+    urlToken "http://example.com/webhook"
+    addArtifact jar
+    messageFirst
+}
+```
