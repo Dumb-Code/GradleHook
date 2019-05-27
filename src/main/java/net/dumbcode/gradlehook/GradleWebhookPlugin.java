@@ -7,8 +7,8 @@ import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskProvider;
 
 /**
- * @Author Jack Goldsworth
- * @Author Wyn Price
+ * @author Jack Goldsworth
+ * @author Wyn Price
  */
 public class GradleWebhookPlugin implements Plugin<Project> {
 
