@@ -1,5 +1,5 @@
 # Gradle-Hook
-Adds the `postRequest` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified.
+Adds the `postRequest` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified. The request uses the user agent `Mozilla/5.0` and has the content-type of `multipart/form-data`
 
 # Applying the Plugin
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
