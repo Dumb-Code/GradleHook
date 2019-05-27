@@ -1,9 +1,10 @@
 package net.dumbcode.gradlehook.extensions;
 
 import org.gradle.api.Project;
-import org.gradle.api.provider.ListProperty;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.bundling.AbstractArchiveTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The extension class for the plugin/
@@ -12,25 +13,21 @@ public class GradleHookExtension {
     /**
      * The list of all the jars to upload
      */
-    private ListProperty<JarEntry> jars;
+    private List<JarEntry> jars = new ArrayList<>();
     /**
      * The url to send a post request to
      */
-    private Property<String> urlToken;
+    private String urlToken;
     /**
      * The json payload to optionally send with the files. Sending this will cause a message/embed
      */
-    private ListProperty<FieldEntry> fieldEntries;
+    private List<FieldEntry> fieldEntries = new ArrayList<>();
     /**
      * If the payload is not empty, and this is set to true, then the json payload will be sent before the files
      */
-    private Property<Boolean> messageFirst;
+    private boolean messageFirst;
 
     public GradleHookExtension(Project project) {
-        urlToken = project.getObjects().property(String.class);
-        fieldEntries = project.getObjects().listProperty(FieldEntry.class);
-        jars = project.getObjects().listProperty(JarEntry.class);
-        messageFirst = project.getObjects().property(Boolean.class);
     }
 
     public void addArtifact(AbstractArchiveTask task) {
@@ -38,7 +35,7 @@ public class GradleHookExtension {
     }
 
     public void urlToken(String string) {
-        this.urlToken.set(string);
+        this.urlToken = string;
     }
 
     public void addField(String name, String value) {
@@ -46,22 +43,22 @@ public class GradleHookExtension {
     }
 
     public void messageFirst() {
-        this.messageFirst.set(true);
+        this.messageFirst = true;
     }
 
-    public Property<String> getUrlToken() {
+    public String getUrlToken() {
         return urlToken;
     }
 
-    public ListProperty<FieldEntry> getFieldEntries() {
+    public List<FieldEntry> getFieldEntries() {
         return fieldEntries;
     }
 
-    public Property<Boolean> getMessageFirst() {
+    public boolean getMessageFirst() {
         return messageFirst;
     }
 
-    public ListProperty<JarEntry> getAllJars() {
+    public List<JarEntry> getAllJars() {
         return jars;
     }
 }
