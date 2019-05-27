@@ -1,11 +1,11 @@
 # Gradle-Hook
-Adds the `post-request` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified.
+Adds the `postRequest` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified.
 
 # Applying the Plugin
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```gradle
 plugins {
-  id "net.dumbcode.gradlehook" version "1.1.0"
+  id "net.dumbcode.gradlehook" version "1.2.0"
 }
 ```
 Using [legacy plugin application](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application):
@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.1.0"
+    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.2.0"
   }
 }
 
@@ -73,10 +73,11 @@ The fields are able to have placeholders, as shown in the above example. These p
  - `{{datetime}}` -> the current time in UTC, in ISO-8601 format 
  
  ## Message First Option
- In some senarios, you want the text message to sent as a seperate webhook before the build webhooks.
+ In some senarios, you want the text message to sent as a seperate webhook before the build webhooks. The following would mean a webhook with the field "id" would be sent, then once an HTTP_OK response code is sent, the artifacts are sent over in a webhook. 
 ```gradle
 gradlehook {
     urlToken "http://example.com/webhook"
+    addField 'id', 'user2201'
     addArtifact jar
     messageFirst
 }
