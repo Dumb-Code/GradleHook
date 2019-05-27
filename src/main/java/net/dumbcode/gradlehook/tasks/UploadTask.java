@@ -107,7 +107,8 @@ public class UploadTask extends DefaultTask {
         }
         try {
             PostForm.Result result = form.send();
-            if(result.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            int rCode = result.getResponseCode();
+            if(rCode == HttpURLConnection.HTTP_OK || rCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 System.out.printf("File%s uploaded successfully", tasks.size() == 1 ? "" : "s");
             } else {
                 System.out.printf("File%s upload failed with response %d", tasks.size() == 1 ? "" : "s", result.getResponseCode());

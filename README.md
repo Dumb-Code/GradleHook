@@ -5,7 +5,7 @@ Adds the `post-request` task which simply posts a POST request along with the sp
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```gradle
 plugins {
-  id "net.dumbcode.gradlehook" version "1.1.0"
+  id "net.dumbcode.gradlehook" version "1.2.0"
 }
 ```
 Using [legacy plugin application](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application):
@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "net.dumbcode:gradle-plugins:1.1.0"
+    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.0.0"
   }
 }
 
@@ -28,7 +28,7 @@ apply plugin: "net.dumbcode.gradlehook"
 # Simple Plugin
 The bare minimum of a plugin
 ```gradle
-discordplugin {
+gradlehook {
     urlToken "http://example.com/webhook" //You will want to keep this url private. It should really be in a gradle.properties file.
     addArtifact jar
 }
@@ -57,7 +57,7 @@ When sending the request, you might want to add additional data. This can be don
 For example, sending a webhook to a discord server would be:
 ```gradle
 gradlehook {
-    urlToken 'https://discordapp.com/api/webhooks/012345678912345678/eUGNDv4bnB6D8UdillDvccPl78gGYmU86s4DdDqxXC7A0nQybH9S96q_vNsLNGEnv9WQ' //Would go in a gradle.properties, or a file that isn't commited to git
+    urlToken 'https://discordapp.com/api/webhooks/012345678912345678/foobar' //Would go in a gradle.properties, or a file that isn't commited to git
     
     addField 'payload_json', '{ "embeds": [{ "timestamp": "{{datetime}}" }] }'
     
