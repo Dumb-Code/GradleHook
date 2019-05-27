@@ -1,6 +1,6 @@
 package net.dumbcode.gradlehook;
 
-import net.dumbcode.gradlehook.extensions.TokenExtension;
+import net.dumbcode.gradlehook.extensions.GradleHookExtension;
 import net.dumbcode.gradlehook.tasks.UploadTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -14,7 +14,7 @@ public class GradleWebhookPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        TokenExtension extension = project.getExtensions().create("gradlehook", TokenExtension.class, project);
+        GradleHookExtension extension = project.getExtensions().create("gradlehook", GradleHookExtension.class, project);
 
         TaskProvider<UploadTask> taskP = project.getTasks().register("post-request", UploadTask.class, uploadTask -> {
             uploadTask.getUrlToken().set(extension.getUrlToken());

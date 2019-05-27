@@ -8,7 +8,7 @@ import org.gradle.api.tasks.bundling.AbstractArchiveTask;
 /**
  * The extension class for the plugin/
  */
-public class TokenExtension {
+public class GradleHookExtension {
     /**
      * The list of all the jars to upload
      */
@@ -26,7 +26,7 @@ public class TokenExtension {
      */
     private Property<Boolean> messageFirst;
 
-    public TokenExtension(Project project) {
+    public GradleHookExtension(Project project) {
         urlToken = project.getObjects().property(String.class);
         fieldEntries = project.getObjects().listProperty(FieldEntry.class);
         jars = project.getObjects().listProperty(JarEntry.class);
