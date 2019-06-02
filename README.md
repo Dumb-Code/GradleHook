@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.net.dumbcode.gradlehook:GradleHook:1.2.0"
+    classpath "net.dumbcode.gradlehook:GradleHook:1.2.0"
   }
 }
 
