@@ -2,6 +2,7 @@ plugins {
     id 'maven-publish'
     id "com.gradle.plugin-publish" version "0.10.1"
     id "java-gradle-plugin"
+    id "org.sonarqube" version "2.7"
 }
 
 group 'net.dumbcode.gradlehook'
@@ -45,5 +46,17 @@ pluginBundle {
             version = project.version
             tags = ['webhook', 'integration', 'discord']
         }
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "GradleHook"
+        property "sonar.projectKey", "net.dumbcode.gradlehook"
+
+        property "sonar.links.homepage", "https://github.com/Dumb-Code/GradleHook"
+        property "sonar.links.ci", "https://travis-ci.com/Dumb-Code/GradleHook"
+        property "sonar.links.scm", "https://github.com/Dumb-Code/GradleHook"
+        property "sonar.links.issue", "https://github.com/Dumb-Code/GradleHook/issues"
     }
 }
