@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Dumb-Code/GradleHook.svg?branch=master)](https://travis-ci.org/Dumb-Code/GradleHook)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=net.dumbcode.gradlehook)](https://sonarcloud.io/dashboard?id=net.dumbcode.gradlehook)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=net.dumbcode.gradlehook&metric=alert_status)](https://sonarcloud.io/dashboard?id=net.dumbcode.gradlehook)
 
 # Gradle-Hook
 Adds the `postRequest` task which simply posts a POST request along with the specified builds. Additional fields for the request can be specified. The request uses the user agent `Mozilla/5.0` and has the content-type of `multipart/form-data`
