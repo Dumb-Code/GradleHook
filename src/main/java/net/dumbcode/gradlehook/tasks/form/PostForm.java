@@ -84,7 +84,7 @@ public class PostForm {
      */
     public class Result {
         private final int responseCode;
-        private final String response;
+        private final String responseMessage;
 
         public Result(HttpURLConnection con) throws IOException {
             this.responseCode = con.getResponseCode();
@@ -97,9 +97,9 @@ public class PostForm {
                     response.append(inputLine);
                 }
                 in.close();
-                this.response = response.toString();
+                this.responseMessage = response.toString();
             } else {
-                this.response = null;
+                this.responseMessage = null;
             }
         }
 
@@ -107,8 +107,8 @@ public class PostForm {
             return responseCode;
         }
 
-        public String getResponse() {
-            return response;
+        public String getResponseMessage() {
+            return responseMessage;
         }
     }
 }

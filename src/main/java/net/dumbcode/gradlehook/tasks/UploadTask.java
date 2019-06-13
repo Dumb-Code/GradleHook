@@ -84,9 +84,9 @@ public class UploadTask extends DefaultTask {
             PostForm.Result result = form.send();
             int rCode = result.getResponseCode();
             if(rCode == HttpURLConnection.HTTP_OK || rCode == HttpURLConnection.HTTP_NO_CONTENT) {
-                logger.quiet("File{} uploaded successfully", this.jars.size() == 1 ? "" : "s");
+                logger.quiet("File uploaded successfully");
             } else {
-                logger.error("File{} upload failed with response {}", this.jars.size() == 1 ? "" : "s", result.getResponseCode());
+                logger.error("File upload failed with response {}", result.getResponseCode());
             }
         } catch (IOException e) {
             logger.error(e.getLocalizedMessage());
