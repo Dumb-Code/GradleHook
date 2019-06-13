@@ -53,8 +53,7 @@ public class PostForm {
      * @throws IOException If something goes wrong
      */
     public Result send() throws IOException {
-        URL url = new URL(this.url);
-        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
         http.setRequestMethod("POST");
         http.setDoOutput(true);
         http.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + this.boundary);
@@ -85,7 +84,7 @@ public class PostForm {
      */
     public class Result {
         private final int responseCode;
-        private final String result;
+        private final String response;
 
         public Result(HttpURLConnection con) throws IOException {
             this.responseCode = con.getResponseCode();
@@ -98,9 +97,9 @@ public class PostForm {
                     response.append(inputLine);
                 }
                 in.close();
-                this.result = response.toString();
+                this.response = response.toString();
             } else {
-                this.result = null;
+                this.response = null;
             }
         }
 
@@ -108,8 +107,8 @@ public class PostForm {
             return responseCode;
         }
 
-        public String getResult() {
-            return result;
+        public String getResponse() {
+            return response;
         }
     }
 }
