@@ -89,7 +89,7 @@ public class UploadTask extends DefaultTask {
                 logger.error("File upload failed with response {}", result.getResponseCode());
             }
         } catch (IOException e) {
-            logger.error(e.getLocalizedMessage());
+            logger.error(e.getLocalizedMessage(), e);
         }
 
     }
@@ -116,7 +116,7 @@ public class UploadTask extends DefaultTask {
                     logger.error("Got an error response {}, aborting upload process", result.getResponseCode());
                 }
             } catch (IOException e) {
-                logger.error(e.getLocalizedMessage());
+                logger.error(e.getLocalizedMessage(), e);
             }
             form.reset();
         }
