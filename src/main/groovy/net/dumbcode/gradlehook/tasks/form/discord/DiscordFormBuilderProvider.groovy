@@ -10,7 +10,7 @@ import java.util.function.Function
 enum DiscordFormBuilderProvider {
     INSTANCE
 
-    PostForm creatForm(@DelegatesTo(DiscordFormBuilder) Closure<?> closure) {
+    PostForm createForm(@DelegatesTo(DiscordFormBuilder) Closure<?> closure) {
         def builder = new DiscordFormBuilder()
         builder.with(closure)
         println(JsonOutput.toJson(builder))
