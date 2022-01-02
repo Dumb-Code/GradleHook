@@ -18,7 +18,6 @@ import java.time.ZoneOffset
 /**
  * The only task. Used to upload the files to a webhook
  */
-@ToString
 class UploadTask extends DefaultTask {
     /**
      * The list of all the jars to upload
@@ -29,6 +28,7 @@ class UploadTask extends DefaultTask {
      * The url to send a post request to
      */
     @Input
+    @Optional
     String urlToken
     /**
      * The json payload to optionally send with the files. Sending this will cause a message/embed
@@ -40,14 +40,16 @@ class UploadTask extends DefaultTask {
      * If the payload is not empty, and this is set to true, then the json payload will be sent before the files
      */
     @Input
-    @Optional
-    boolean messageFirst
+    boolean messageFirst = false
 
-    final Logger logger = getProject().getLogger()
+    private final Logger logger = getProject().getLogger()
 
     @TaskAction
     void uploadFile() {
         def url = this.urlToken
+        if(url === null) {
+            throw new Error("URL WAS NULL.")
+        }
         //Create the form
         def form = new PostForm()
         //If there is a json payload
