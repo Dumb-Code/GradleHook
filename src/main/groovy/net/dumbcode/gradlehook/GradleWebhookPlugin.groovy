@@ -19,14 +19,14 @@ class GradleWebhookPlugin implements Plugin<Project> {
         def task = project.tasks.create("postRequest", UploadTask)
 
         project.afterEvaluate { p ->
-            println("HELO " + extension.urlToken)
             task.jars = extension.jars
             task.urlToken = extension.urlToken
             task.fieldEntries = extension.fieldEntries
             task.messageFirst = extension.messageFirst
+
+            task.dependsOn(project.tasks.getByName("build"))
         }
 
-        task.dependsOn(project.tasks.getByName("build"))
 
         task.description = "Posts the POST request specified by the `gradlehook` block"
         task.group = "upload"
